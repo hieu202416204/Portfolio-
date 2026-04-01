@@ -1,0 +1,136 @@
+/* ==================== BEATING SPHERE & RIPPLE EFFECTS ==================== */
+/* Khối cầu trắng đập có tỏa sóng - Hiệu ứng trái tim cho hero section */
+
+@keyframes beatingSphere {
+    0% {
+        transform: scale(1);
+        box-shadow:
+            0 0 0 0 rgba(255, 255, 255, 0.3),
+            inset -30px -30px 60px rgba(0, 0, 0, 0.4),
+            inset 20px 20px 40px rgba(255, 255, 255, 0.1),
+            0 30px 60px rgba(0, 0, 0, 0.5),
+            0 60px 100px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        transform: scale(1.15);
+        box-shadow:
+            0 0 0 20px rgba(255, 255, 255, 0.08),
+            inset -30px -30px 60px rgba(0, 0, 0, 0.3),
+            inset 20px 20px 40px rgba(255, 255, 255, 0.08),
+            0 40px 80px rgba(0, 0, 0, 0.6),
+            0 80px 120px rgba(0, 0, 0, 0.4);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow:
+            0 0 0 0 rgba(255, 255, 255, 0.3),
+            inset -30px -30px 60px rgba(0, 0, 0, 0.4),
+            inset 20px 20px 40px rgba(255, 255, 255, 0.1),
+            0 30px 60px rgba(0, 0, 0, 0.5),
+            0 60px 100px rgba(0, 0, 0, 0.3);
+    }
+}
+
+@keyframes rippleWave {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(8);
+        opacity: 0;
+    }
+}
+
+/* Container chứa sphere */
+.beating-sphere-container {
+    position: relative;
+    flex: 0 1 auto;
+    width: 280px;
+    height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    margin-left: auto;
+}
+
+/* Quả cầu trắng chính */
+.beating-sphere {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at 30% 30%,
+        rgba(255, 255, 255, 0.85) 0%,
+        rgba(255, 255, 255, 0.6) 40%,
+        rgba(220, 220, 220, 0.5) 70%,
+        rgba(180, 180, 180, 0.4) 100%
+    );
+    box-shadow:
+        /* Glow mềm bên ngoài */
+        0 0 80px rgba(255, 255, 255, 0.15),
+        /* Shadow chính sâu */
+        0 50px 100px rgba(0, 0, 0, 0.6),
+        /* Shadow phụ */
+        0 20px 40px rgba(0, 0, 0, 0.5),
+        /* Inset shadow tạo chiều sâu */
+        inset -40px -40px 80px rgba(0, 0, 0, 0.35),
+        inset 30px 30px 60px rgba(255, 255, 255, 0.12),
+        /* Highlight nhỏ */
+        inset 20px 20px 30px rgba(255, 255, 255, 0.08);
+    animation: beatingSphere 1.2s ease-in-out infinite;
+    position: relative;
+    will-change: transform, box-shadow;
+    filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.4));
+}
+
+/* Hiệu ứng tỏa sóng - Ripple */
+.ripple {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2.5px solid rgba(255, 255, 255, 0.7);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    pointer-events: none;
+    animation: rippleWave 1.2s ease-out infinite;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Độ trễ cho từng ripple */
+.ripple-1 {
+    animation-delay: 0s;
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+.ripple-2 {
+    animation-delay: 0.4s;
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.ripple-3 {
+    animation-delay: 0.8s;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .beating-sphere-container {
+        flex: 0 1 100%;
+        width: 200px;
+        height: 200px;
+        margin: var(--spacing-lg) auto 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .beating-sphere-container {
+        width: 150px;
+        height: 150px;
+        margin: var(--spacing-md) auto 0;
+    }
+}
+
